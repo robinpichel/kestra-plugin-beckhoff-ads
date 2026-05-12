@@ -50,40 +50,35 @@ tasks:
 - Build and test with ./gradlew clean test.
 - Test flows are in src/test/resources/flows.
 
-### Real ADS smoke test
+### Real ADS quick test (Windows host)
 
-An opt-in smoke test is available for a real ADS endpoint:
-
-- Test class: src/test/java/io/kestra/plugin/beckhoff/ads/integration/AdsRealServerSmokeTest.java
-- Flow example: src/test/resources/flows/ads-real-server-smoke.yaml
+Use this when your PLC is reachable from the same Windows host where you run the build.
 
 Default live target settings:
 
 - ADS_TARGET_IP=localhost
 - ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1
 - ADS_TARGET_AMS_PORT=851
+- ADS_REAL_VARIABLE=MAIN.nAdsKestraTest
 
-Set the variable and data type explicitly for your PLC:
+Recommended one-command run:
 
-- ADS_REAL_VARIABLE (required for meaningful test)
-- ADS_REAL_WRITE_VARIABLE (optional, defaults to ADS_REAL_VARIABLE)
-- ADS_REAL_DATATYPE (default DINT)
-- ADS_AUTO_ADD_ROUTE (optional, default false)
-- ADS_LOCAL_AMS_NET_ID (optional, required in many route setups)
-
-Run with smoke test enabled:
-
-```bash
-ADS_REAL_SMOKE_TEST=true \
-ADS_TARGET_IP=localhost \
-ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1 \
-ADS_TARGET_AMS_PORT=851 \
-ADS_REAL_VARIABLE=MAIN.nAdsKestraTest \
-ADS_REAL_DATATYPE=DINT \
-./gradlew clean test
+```powershell
+./scripts/run-real-ads-quicktest.ps1
 ```
 
-Fastest live check (recommended for PLC verification):
+Custom run example:
+
+```powershell
+./scripts/run-real-ads-quicktest.ps1 `
+  -TargetIp localhost `
+  -TargetAmsNetId 199.4.42.250.1.1 `
+  -TargetAmsPort 851 `
+  -Variable MAIN.nAdsKestraTest `
+  -DataType DINT
+```
+
+Manual fast run (if you need full control):
 
 ```bash
 ADS_REAL_SMOKE_TEST=true \
