@@ -16,6 +16,9 @@ def isBuildSnapshot = version.toString().endsWith("-SNAPSHOT")
 repositories {
     mavenLocal()
     mavenCentral()
+    flatDir {
+        dirs "libs"
+    }
     if (isBuildSnapshot) {
         maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
@@ -49,6 +52,9 @@ dependencies {
     annotationProcessor group: "io.kestra", name: "processor", version: kestraVersion
     compileOnly group: "io.kestra", name: "core", version: kestraVersion
     compileOnly group: "io.kestra", name: "script", version: kestraVersion
+
+    // official Beckhoff AdsToJava JNI wrapper
+    implementation name: "TcJavaToAds-3.1.0"
 }
 
 

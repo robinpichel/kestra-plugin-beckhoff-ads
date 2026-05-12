@@ -52,7 +52,18 @@ tasks:
 
 ## Notes on ADS library integration
 
-The current implementation uses an ADS client provider abstraction. Plug in your preferred Beckhoff ADS Java library through AdsClientFactory.setProvider so tasks and triggers can execute against your runtime adapter.
+The plugin now uses Beckhoff's official AdsToJava library:
+
+- Jar: libs/TcJavaToAds-3.1.0.jar (from official Beckhoff release 3.1.0-32)
+- JNI wrapper class: de.beckhoff.jni.tcads.AdsCallDllFunction
+
+Runtime requirement:
+
+- The native library AdsToJava-3.dll (Windows) or libAdsToJava-3.so (Linux/TcBSD) must be available in java.library.path.
+
+Advanced usage:
+
+- You can still override the client provider via AdsClientFactory.setProvider for custom adapters or tests.
 
 ## License
 

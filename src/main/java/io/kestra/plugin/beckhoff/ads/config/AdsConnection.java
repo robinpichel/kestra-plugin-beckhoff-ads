@@ -12,8 +12,14 @@ import java.time.Duration;
 @SuperBuilder
 @NoArgsConstructor
 public class AdsConnection {
+    @Schema(title = "Target host/IP for route setup", example = "192.168.0.20")
+    private String targetIp;
+
     @Schema(title = "Target AMS Net ID", example = "5.32.176.1.1.1")
     private String targetAmsNetId;
+
+    @Schema(title = "Optional local AMS Net ID", example = "192.168.0.10.1.1")
+    private String localAmsNetId;
 
     @Schema(title = "Target ADS Port", example = "851")
     @Builder.Default
@@ -22,4 +28,8 @@ public class AdsConnection {
     @Schema(title = "Read/write timeout", example = "PT5S")
     @Builder.Default
     private Duration timeout = Duration.ofSeconds(5);
+
+    @Schema(title = "Read buffer size for STRING values", example = "256")
+    @Builder.Default
+    private Integer stringReadLength = 256;
 }

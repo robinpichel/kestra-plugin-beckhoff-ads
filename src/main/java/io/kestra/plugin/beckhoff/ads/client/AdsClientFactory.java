@@ -8,7 +8,7 @@ import io.kestra.plugin.beckhoff.ads.model.AdsSymbol;
 import java.util.List;
 
 public final class AdsClientFactory {
-    private static volatile Provider provider = new UnsupportedProvider();
+    private static volatile Provider provider = defaultProvider();
 
     private AdsClientFactory() {
     }
@@ -22,7 +22,15 @@ public final class AdsClientFactory {
     }
 
     public static void resetProvider() {
-        provider = new UnsupportedProvider();
+        provider = defaultProvider();
+    }
+
+    private static Provider defaultProvider() {
+        try {
+            return OfficialAdsToJavaClient::new;
+        } catch (Throwable e) {
+            return new UnsupportedProvider();
+        }
     }
 
     public interface Provider {
