@@ -50,6 +50,37 @@ tasks:
 - Build and test with ./gradlew clean test.
 - Test flows are in src/test/resources/flows.
 
+### Real ADS smoke test
+
+An opt-in smoke test is available for a real ADS endpoint:
+
+- Test class: src/test/java/io/kestra/plugin/beckhoff/ads/integration/AdsRealServerSmokeTest.java
+- Flow example: src/test/resources/flows/ads-real-server-smoke.yaml
+
+Default live target settings:
+
+- ADS_TARGET_IP=localhost
+- ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1
+- ADS_TARGET_AMS_PORT=851
+
+Set the variable and data type explicitly for your PLC:
+
+- ADS_REAL_VARIABLE (required for meaningful test)
+- ADS_REAL_WRITE_VARIABLE (optional, defaults to ADS_REAL_VARIABLE)
+- ADS_REAL_DATATYPE (default DINT)
+
+Run with smoke test enabled:
+
+```bash
+ADS_REAL_SMOKE_TEST=true \
+ADS_TARGET_IP=localhost \
+ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1 \
+ADS_TARGET_AMS_PORT=851 \
+ADS_REAL_VARIABLE=GVL.Counter \
+ADS_REAL_DATATYPE=DINT \
+./gradlew clean test
+```
+
 ## Notes on ADS library integration
 
 The plugin now uses Beckhoff's official AdsToJava library:
