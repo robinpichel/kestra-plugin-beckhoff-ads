@@ -23,7 +23,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Schema(title = "Read a variable from Beckhoff ADS")
+@Schema(
+    title = "Read a variable from Beckhoff ADS",
+    description = "Reads a variable from an ADS target and returns the typed value."
+)
 @Plugin(examples = {
     @io.kestra.core.models.annotations.Example(
         title = "Read a PLC variable",
@@ -36,7 +39,7 @@ import lombok.experimental.SuperBuilder;
         }
     )
 })
-public class AdsRead extends Task implements RunnableTask<AdsRead.Output> {
+public class Read extends Task implements RunnableTask<Read.Output> {
     @Schema(title = "ADS connection settings")
     private AdsConnection connection;
 

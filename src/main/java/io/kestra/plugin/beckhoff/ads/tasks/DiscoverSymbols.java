@@ -24,9 +24,12 @@ import java.util.List;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Schema(title = "Discover symbols from a Beckhoff ADS target")
+@Schema(
+    title = "Discover symbols on Beckhoff ADS",
+    description = "Lists symbols exposed by the ADS target."
+)
 @Plugin
-public class AdsSymbolDiscovery extends Task implements RunnableTask<AdsSymbolDiscovery.Output> {
+public class DiscoverSymbols extends Task implements RunnableTask<DiscoverSymbols.Output> {
     @Schema(title = "ADS connection settings")
     private AdsConnection connection;
 

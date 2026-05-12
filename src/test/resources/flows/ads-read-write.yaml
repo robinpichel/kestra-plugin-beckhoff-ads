@@ -3,7 +3,7 @@ namespace: io.kestra.plugin.beckhoff.ads
 
 tasks:
   - id: read-counter
-    type: io.kestra.plugin.beckhoff.ads.tasks.AdsRead
+    type: io.kestra.plugin.beckhoff.ads.tasks.Read
     connection:
       targetAmsNetId: "5.32.176.1.1.1"
       targetAmsPort: 851
@@ -11,7 +11,7 @@ tasks:
     dataType: "DINT"
 
   - id: write-counter
-    type: io.kestra.plugin.beckhoff.ads.tasks.AdsWrite
+    type: io.kestra.plugin.beckhoff.ads.tasks.Write
     connection:
       targetAmsNetId: "5.32.176.1.1.1"
       targetAmsPort: 851

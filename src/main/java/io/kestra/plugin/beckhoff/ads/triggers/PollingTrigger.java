@@ -34,9 +34,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Schema(title = "Poll Beckhoff ADS variable and trigger on change or threshold")
+@Schema(
+    title = "Poll a Beckhoff ADS variable",
+    description = "Starts an execution when a polled variable matches ON_CHANGE or threshold conditions."
+)
 @Plugin
-public class AdsPollingTrigger extends AbstractTrigger implements PollingTriggerInterface, TriggerOutput<AdsPollingTrigger.Output> {
+public class PollingTrigger extends AbstractTrigger implements PollingTriggerInterface, TriggerOutput<PollingTrigger.Output> {
     private static final Map<String, Object> LAST_VALUES = new ConcurrentHashMap<>();
 
     @Builder.Default
@@ -98,6 +101,7 @@ public class AdsPollingTrigger extends AbstractTrigger implements PollingTrigger
 
         return Optional.of(execution);
     }
+
     @Builder
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {

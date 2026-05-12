@@ -24,9 +24,12 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Schema(title = "Write a value to a Beckhoff ADS variable")
+@Schema(
+    title = "Write a value to Beckhoff ADS",
+    description = "Writes a typed value to a variable on an ADS target."
+)
 @Plugin
-public class AdsWrite extends Task implements RunnableTask<AdsWrite.Output> {
+public class Write extends Task implements RunnableTask<Write.Output> {
     @Schema(title = "ADS connection settings")
     private AdsConnection connection;
 

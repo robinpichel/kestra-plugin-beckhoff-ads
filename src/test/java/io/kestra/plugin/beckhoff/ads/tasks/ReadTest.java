@@ -1,25 +1,24 @@
 package io.kestra.plugin.beckhoff.ads.tasks;
 
 import io.kestra.core.junit.annotations.KestraTest;
+import io.kestra.core.models.property.Property;
 import io.kestra.core.runners.RunContext;
 import io.kestra.core.runners.RunContextFactory;
 import io.kestra.plugin.beckhoff.ads.TestAdsClient;
 import io.kestra.plugin.beckhoff.ads.client.AdsClientFactory;
 import io.kestra.plugin.beckhoff.ads.config.AdsConnection;
-import io.kestra.plugin.beckhoff.ads.model.AdsSymbol;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @KestraTest
-class AdsSymbolDiscoveryTest {
+class ReadTest {
     @Inject
     private RunContextFactory runContextFactory;
 
@@ -28,10 +27,7 @@ class AdsSymbolDiscoveryTest {
     @BeforeEach
     void setup() {
         testClient = new TestAdsClient();
-        testClient.setSymbols(List.of(
-            AdsSymbol.builder().name("GVL.Counter").type("DINT").size(4).build(),
-            AdsSymbol.builder().name("GVL.Enabled").type("BOOL").size(1).build()
-        ));
+        testClient.setValue("GVL.Counter", 42L);
         AdsClientFactory.setProvider(() -> testClient);
     }
 
@@ -44,13 +40,16 @@ class AdsSymbolDiscoveryTest {
     void run() throws Exception {
         RunContext runContext = runContextFactory.of(Map.of());
 
-        AdsSymbolDiscovery task = AdsSymbolDiscovery.builder()
+        Read task = Read.builder()
             .connection(AdsConnection.builder().targetAmsNetId("5.32.176.1.1.1").build())
+            .variable(Property.ofValue("GVL.Counter"))
+            .dataType(Property.ofValue("DINT"))
             .build();
 
-        AdsSymbolDiscovery.Output output = task.run(runContext);
+        Read.Output output = task.run(runContext);
 
-        assertThat(output.getCount(), is(2));
-        assertThat(output.getSymbols().get(0).getName(), is("GVL.Counter"));
+        assertThat(output.getVariable(), is("GVL.Counter"));
+        assertThat(output.getDataType(), is("DINT"));
+        assertThat(output.getValue(), is(42L));
     }
 }
