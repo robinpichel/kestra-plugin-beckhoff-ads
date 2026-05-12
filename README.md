@@ -13,6 +13,13 @@ Important: this repository is an unofficial community project and is not affilia
 - Provides plugin components under `io.kestra.plugin.beckhoff.ads`.
 - Includes classes such as `Read`, `Write`, `DiscoverSymbols`, and `PollingTrigger`.
 
+### Feature summary
+
+- `Read`: reads a typed ADS variable and returns `variable`, `dataType`, and `value`.
+- `Write`: writes a typed ADS value and returns `variable`, `dataType`, `value`, and `written`.
+- `DiscoverSymbols`: lists symbols from the target and returns `symbols` plus `count`.
+- `PollingTrigger`: polls a variable and starts executions for `ON_CHANGE`, `GT`, `LT`, or `EQ` conditions.
+
 ## Example
 
 ```yaml
@@ -42,6 +49,7 @@ tasks:
 
 * Full documentation can be found under [kestra.io/docs](https://kestra.io/docs)
 * Documentation for developing a plugin is included in the [Plugin Developer Guide](https://kestra.io/docs/plugin-developer-guide/)
+* End-to-end examples for every function are available in [docs/examples.md](docs/examples.md)
 
 ## Local development
 
