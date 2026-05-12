@@ -65,6 +65,15 @@ test {
     useJUnitPlatform()
 }
 
+tasks.register("realAdsQuickTest", Test) {
+    description = "Runs only the fast real ADS smoke test."
+    group = "verification"
+    useJUnitPlatform()
+    include "**/AdsRealServerQuickTest.class"
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
 testlogger {
     theme = "mocha-parallel"
     showExceptions = true

@@ -83,6 +83,19 @@ ADS_REAL_DATATYPE=DINT \
 ./gradlew clean test
 ```
 
+Fastest live check (recommended for PLC verification):
+
+```bash
+ADS_REAL_SMOKE_TEST=true \
+ADS_TARGET_IP=localhost \
+ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1 \
+ADS_TARGET_AMS_PORT=851 \
+ADS_REAL_VARIABLE=MAIN.nAdsKestraTest \
+./gradlew realAdsQuickTest
+```
+
+If the variable does not change, check the test output for "ADS error code". When handle resolution fails first, the write operation is never executed.
+
 ## Notes on ADS library integration
 
 The plugin now uses Beckhoff's official AdsToJava library:
