@@ -15,6 +15,7 @@ import io.kestra.plugin.beckhoff.ads.client.AdsClientFactory;
 import io.kestra.plugin.beckhoff.ads.config.AdsConnection;
 import io.kestra.plugin.beckhoff.ads.model.AdsDataType;
 import io.kestra.plugin.beckhoff.ads.model.AdsException;
+import io.kestra.plugin.beckhoff.ads.util.AdsTriggerEvaluator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -78,7 +79,7 @@ public class AdsPollingTrigger extends AbstractTrigger implements PollingTrigger
         Object previousValue = LAST_VALUES.get(stateKey);
         LAST_VALUES.put(stateKey, currentValue);
 
-        if (!shouldTrigger(renderedMode, previousValue, currentValue, renderedThreshold)) {
+        if (!AdsTriggerEvaluator.shouldTrigger(renderedMode, previousValue, currentValue, renderedThreshold)) {
             return Optional.empty();
         }
 
@@ -97,27 +98,6 @@ public class AdsPollingTrigger extends AbstractTrigger implements PollingTrigger
 
         return Optional.of(execution);
     }
-
-    private boolean shouldTrigger(String modeValue, Object previous, Object current, String thresholdValue) {
-        if ("ON_CHANGE".equals(modeValue)) {
-            return previous != null && !previous.equals(current);
-        }
-
-        if (thresholdValue == null) {
-            return false;
-        }
-
-        double currentNumber = Double.parseDouble(String.valueOf(current));
-        double thresholdNumber = Double.parseDouble(thresholdValue);
-
-        return switch (modeValue) {
-            case "GT" -> currentNumber > thresholdNumber;
-            case "LT" -> currentNumber < thresholdNumber;
-            case "EQ" -> currentNumber == thresholdNumber;
-            default -> false;
-        };
-    }
-
     @Builder
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {
