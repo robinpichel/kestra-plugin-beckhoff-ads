@@ -1,0 +1,20 @@
+id: ads-read-write
+namespace: io.kestra.plugin.beckhoff.ads
+
+tasks:
+  - id: read-counter
+    type: io.kestra.plugin.beckhoff.ads.tasks.AdsRead
+    connection:
+      targetAmsNetId: "5.32.176.1.1.1"
+      targetAmsPort: 851
+    variable: "GVL.Counter"
+    dataType: "DINT"
+
+  - id: write-counter
+    type: io.kestra.plugin.beckhoff.ads.tasks.AdsWrite
+    connection:
+      targetAmsNetId: "5.32.176.1.1.1"
+      targetAmsPort: 851
+    variable: "GVL.Counter"
+    value: "{{ outputs['read-counter'].value }}"
+    dataType: "DINT"

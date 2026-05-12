@@ -1,8 +1,8 @@
-group: io.kestra.plugin.template
-name: "template"
-title: "Template"
-description: "Plugin template for Kestra"
-body: ""
+group: io.kestra.plugin.beckhoff
+name: "ads"
+title: "Beckhoff ADS"
+description: "Community plugin for Beckhoff ADS communication in Kestra"
+body: "This is an unofficial community project and is not affiliated with or endorsed by Beckhoff."
 videos: []
-createdBy: "Kestra Core Team"
-managedBy: "Kestra Core Team"
+createdBy: "Kestra Community"
+managedBy: "Kestra Community"
