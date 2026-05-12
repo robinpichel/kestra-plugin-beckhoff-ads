@@ -85,7 +85,9 @@ public class OfficialAdsToJavaClient implements AdsClient {
             assertOk(localAddressError, "Failed to set local AMS Net ID");
         }
 
-        if (connection.getTargetIp() != null && !connection.getTargetIp().isBlank()) {
+        if (Boolean.TRUE.equals(connection.getAutoAddRoute()) &&
+            connection.getTargetIp() != null &&
+            !connection.getTargetIp().isBlank()) {
             AmsNetId target = toNetId(connection.getTargetAmsNetId());
             long routeError = AdsCallDllFunction.adsAddLocalRoute(target, connection.getTargetIp());
             if (routeError != AdsCallDllFunction.ADSERR_NO_ERR) {

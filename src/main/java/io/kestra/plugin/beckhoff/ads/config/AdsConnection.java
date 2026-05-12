@@ -15,6 +15,10 @@ public class AdsConnection {
     @Schema(title = "Target host/IP for route setup", example = "192.168.0.20")
     private String targetIp;
 
+    @Schema(title = "Enable automatic adsAddLocalRoute call", example = "false")
+    @Builder.Default
+    private Boolean autoAddRoute = false;
+
     @Schema(title = "Target AMS Net ID", example = "5.32.176.1.1.1")
     private String targetAmsNetId;
 

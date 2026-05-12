@@ -68,6 +68,8 @@ Set the variable and data type explicitly for your PLC:
 - ADS_REAL_VARIABLE (required for meaningful test)
 - ADS_REAL_WRITE_VARIABLE (optional, defaults to ADS_REAL_VARIABLE)
 - ADS_REAL_DATATYPE (default DINT)
+- ADS_AUTO_ADD_ROUTE (optional, default false)
+- ADS_LOCAL_AMS_NET_ID (optional, required in many route setups)
 
 Run with smoke test enabled:
 
@@ -76,7 +78,7 @@ ADS_REAL_SMOKE_TEST=true \
 ADS_TARGET_IP=localhost \
 ADS_TARGET_AMS_NET_ID=199.4.42.250.1.1 \
 ADS_TARGET_AMS_PORT=851 \
-ADS_REAL_VARIABLE=GVL.Counter \
+ADS_REAL_VARIABLE=MAIN.nAdsKestraTest \
 ADS_REAL_DATATYPE=DINT \
 ./gradlew clean test
 ```
