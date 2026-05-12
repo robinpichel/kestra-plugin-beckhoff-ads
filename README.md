@@ -50,6 +50,7 @@ tasks:
 * Full documentation can be found under [kestra.io/docs](https://kestra.io/docs)
 * Documentation for developing a plugin is included in the [Plugin Developer Guide](https://kestra.io/docs/plugin-developer-guide/)
 * End-to-end examples for every function are available in [docs/examples.md](docs/examples.md)
+* Local Kestra smoke-test guide is available in [docs/local-kestra-test.md](docs/local-kestra-test.md)
 
 ## Local development
 

@@ -1,0 +1,38 @@
+id: ads-local-smoke
+namespace: io.kestra.plugin.beckhoff.ads
+
+tasks:
+  - id: read-before
+    type: io.kestra.plugin.beckhoff.ads.tasks.Read
+    connection:
+      targetIp: "localhost"
+      targetAmsNetId: "199.4.42.250.1.1"
+      targetAmsPort: 851
+      autoAddRoute: false
+    variable: "MAIN.nAdsKestraTest"
+    dataType: "DINT"
+
+  - id: write-value
+    type: io.kestra.plugin.beckhoff.ads.tasks.Write
+    connection:
+      targetIp: "localhost"
+      targetAmsNetId: "199.4.42.250.1.1"
+      targetAmsPort: 851
+      autoAddRoute: false
+    variable: "MAIN.nAdsKestraTest"
+    dataType: "DINT"
+    value: "{{ (outputs['read-before'].value ?? 0) + 1 }}"
+
+  - id: read-after
+    type: io.kestra.plugin.beckhoff.ads.tasks.Read
+    connection:
+      targetIp: "localhost"
+      targetAmsNetId: "199.4.42.250.1.1"
+      targetAmsPort: 851
+      autoAddRoute: false
+    variable: "MAIN.nAdsKestraTest"
+    dataType: "DINT"
+
+  - id: log-result
+    type: io.kestra.plugin.core.log.Log
+    message: "Before={{ outputs['read-before'].value }}, written={{ outputs['write-value'].value }}, after={{ outputs['read-after'].value }}"
